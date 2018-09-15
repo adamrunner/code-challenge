@@ -1,6 +1,7 @@
 ### Code Challenge - CLI Data Store w/Transactions
 
 Running the application:
+(You'll need to clone the repo first)
 ```
 $ ruby ruby-cli.rb
 ```
