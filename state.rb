@@ -3,14 +3,9 @@ class State
   attr_reader :persisted
   alias_method :persisted?, :persisted
 
-  def initialize(starting_state = nil, persisted = false)
+  def initialize(starting_state = {}, persisted = false)
     @persisted = persisted
-
-    if starting_state
-      @data = starting_state.dup
-    else
-      @data = {}
-    end
+    @data      = starting_state.dup
   end
 
   def persist
@@ -32,6 +27,10 @@ class State
   def count(value)
     data.select {|k,v| v == value}.count
   end
+
+  # implement a dup call on our state object
+  # so we can pass either a hash or a state object
+  # when we instantiate a new state object
 
   def dup
     data.dup

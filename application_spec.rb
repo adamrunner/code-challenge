@@ -4,9 +4,9 @@ require './application'
 
 describe Application do
   subject { Application.new }
-  describe "#new_transaction" do
+  describe "#begin_transaction" do
     it "adds a new state onto the stack of states" do
-      expect { subject.new_transaction }.to change{subject.states.count}.by(1)
+      expect { subject.begin_transaction }.to change{subject.states.count}.by(1)
     end
   end
 
@@ -18,7 +18,7 @@ describe Application do
     end
 
     context "when the transaction is not committed" do
-      before { subject.new_transaction }
+      before { subject.begin_transaction }
       it "should return true" do
         expect(subject.commit_transaction).to eq(true)
       end
@@ -33,7 +33,7 @@ describe Application do
   describe "#rollback_transaction" do
     context "when there is a non-persisted transaction to rollback" do
       before do
-        subject.new_transaction
+        subject.begin_transaction
         subject.set_value("blah", "BLEH")
       end
       it "changes the current state of the application to the previous state" do
